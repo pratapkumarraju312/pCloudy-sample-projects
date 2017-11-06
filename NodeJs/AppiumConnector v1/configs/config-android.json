@@ -16,7 +16,7 @@
   "bail" : 0,
   "screenshotPath" : "/home/radmin/hipages/appiumConnector/screenshot/",
   "screenshotOnReject" : false,
-  "username" : "muthuraj.bharathi@sstsinc.com",
-  "password" : "4zddhhhjwynxhpdqh32xjdyp",
+  "username" : "Your_UserName_Here",
+  "password" : "Your_API_Key_Here",
   "appname" : "com.ba.mobile.apk"
 }
