@@ -8,15 +8,15 @@
 
   },
   "logLevel" : "verbose",
-  "logOutput" : "/home/radmin/hipages/appiumConnector/log/",
+  "logOutput" : "./log/",
   "protocol" : "https",
-  "host" : "test-main.pcloudy.com",
+  "host" : "device.pcloudy.com",
   "port" : 443,
   "coloredLogs" : true,
   "bail" : 0,
-  "screenshotPath" : "/home/radmin/hipages/appiumConnector/screenshot/",
+  "screenshotPath" : "./screenshot/",
   "screenshotOnReject" : false,
-  "username" : "Your_UserName_Here",
-  "password" : "Your_API_Key_Here",
+  "username" : "anshuman.chatterjee@sstsinc.com",
+  "password" : "qngf3bgv6h8pg2r8xm78xvxz",
   "appname" : "com.ba.mobile.apk"
 }
