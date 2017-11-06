@@ -80,10 +80,12 @@ module.exports = function appiumEngine(configs) {
                                     pcloudyConnectorServices.getAppiumEndPoint(initHubresp.result.token).then(function(getAppiumEndPointstat) {
 
                                         var endPoint = JSON.parse(getAppiumEndPointstat);
+                                        endPoint.rid = rid;
                                         logger.info(JSON.stringify(endPoint));
                                         logger.info(" ===================== Started Appium and Received Endpoint ================== \n ");
                                         logger.info(" endpoint  ==> " + endPoint.result.endpoint);
                                         var options = {};
+
                                         var totalBokkedDevs = bookedDevices.length;
                                         try {
                                             bookedDevices.forEach(function(i, index, bookedDevices) {
