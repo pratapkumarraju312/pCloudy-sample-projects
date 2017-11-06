@@ -24,8 +24,8 @@ module.exports = function appiumEngine(configs) {
 
                         allDevsavilable.forEach(function(entry) {
                             logger.info("=========================================================================================");
-                            logger.info(" full name : " + entry.full_name);
-                            logger.info(" did  : " + entry.id);
+                            logger.info(" Full Name : " + entry.full_name);
+                            logger.info(" Device_ID  : " + entry.id);
                             /*logger.log(" model : "+entry.model);
                             logger.log(" display name : "+entry.display_name);
                             logger.log(" version : "+entry.version);

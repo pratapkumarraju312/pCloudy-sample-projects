@@ -38,7 +38,7 @@ utilServices.fileRead(configPath).then(function(configs) {
             rl.question('====================== choose any one platform  ========================= \n 1 : Android \n  ========= Enter 1 to choose ============= \n', (platform) => {
                 //logger.info(`You have chosen platform : ${platform}`);
                 var platformName = platform,
-                    devicePlatform = '';
+                    devicePlatform = '-NOT-SELECTED-';
 
                 switch (platformName) {
                     case '1':
@@ -85,8 +85,8 @@ utilServices.fileRead(configPath).then(function(configs) {
 
                                     allDevsavilable.forEach(function(entry) {
                                         logger.info("=========================================================================================");
-                                        logger.info(" full name : " + entry.full_name);
-                                        logger.info(" did  : " + entry.id);
+                                        logger.info(" Full Name : " + entry.full_name);
+                                        logger.info(" Device_ID  : " + entry.id);
                                         /*logger.log(" model : "+entry.model);
                                         logger.log(" display name : "+entry.display_name);
                                         logger.log(" version : "+entry.version);
@@ -105,7 +105,7 @@ utilServices.fileRead(configPath).then(function(configs) {
                                         output: process.stdout
                                     });
                                     logger.info('================================================================ \n');
-                                    readdev.question('\n Enter did value as shown above to select devices (use comma for multiple devices) \n ', (answer) => {
+                                    readdev.question('\n Enter \'Device_ID\' value as shown above to select devices (use comma for multiple devices) \n ', (answer) => {
                                         logger.info('================================================================ \n');
 
                                         logger.info(`You have chosen devices : ${answer}`);
@@ -182,8 +182,7 @@ utilServices.fileRead(configPath).then(function(configs) {
 
                                                             /*################################################## Add your code ################################################*/
                                                             .end();
-                                                        //logger.debug('devicename passed in desired capabilities '+i.capabilities.deviceName);
-                                                        //logger.info("options passed to webdriver "+JSON.stringify(options));
+							logger.info('Saved Screenshot and Appium Client Ended.');
                                                     })
                                                     /*###################========= Api to releaseAppiumsession / release all booked devices  After finishing your all test cases call this to release ####################################=====*/
                                                     /*pcloudyConnectorServices.releaseAppiumsession(token,rid).then(function(releaseInstanceAccess){
