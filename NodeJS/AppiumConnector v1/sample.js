@@ -38,7 +38,7 @@ utilServices.fileRead(configPath).then(function(configs) {
             rl.question('====================== choose any one platform  ========================= \n 1 : Android \n  ========= Enter 1 to choose ============= \n', (platform) => {
                 //logger.info(`You have chosen platform : ${platform}`);
                 var platformName = platform,
-                    devicePlatform = '';
+                    devicePlatform = '-NOT-SELECTED-';
 
                 switch (platformName) {
                     case '1':
