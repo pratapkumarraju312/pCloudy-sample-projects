@@ -1,8 +1,8 @@
 var logger = require('.././helpers/logger.js'),
-    pcloudyConnector = require('./services.js'),
-    readline = require('readline'),
-    token = '',
-    configs = {};
+pcloudyConnector = require('./services.js'),
+readline = require('readline'),
+token = '',
+configs = {};
 
 var webdriverio = require('webdriverio');
 
@@ -17,8 +17,8 @@ module.exports = function appiumEngine(configs) {
                     var devDetails = JSON.parse(devices);
                     //logger.log(JSON.stringify(devDetails));
                     var allDevsavilable = devDetails.result.models,
-                        availabledevs = [],
-                        sessionname = '';
+                    availabledevs = [],
+                    sessionname = '';
                     if (allDevsavilable.length) {
                         logger.info(" == Avialable devices == ");
 
@@ -64,60 +64,61 @@ module.exports = function appiumEngine(configs) {
                             Object.keys(bookedDevsInfo).forEach(function(key) {
                                 logger.info(' device id ==> ' + bookedDevsInfo[key].id + ', Device name ==> ' + bookedDevsInfo[key].full_name);
                             })
-                            pcloudyConnectorServices.BookDevicesForAppium(devDetails.result.token, 10, chosenDevs, platform, 'pcloudytest-' + platform, "true").then(function(bookDevstatus) {
-                                //logger.log('bookDev '+JSON.stringify(bookDevstatus));
-                                var bookedDevDetails = JSON.parse(bookDevstatus);
+                            pcloudyConnectorServices.BookDevicesForAppium(devDetails.result.token, 5, chosenDevs, platform, 'pcloudytest-' + platform, "true").then(function(bookDevstatus) {
+                                logger.log('bookDev '+JSON.stringify(bookDevstatus));
+                                try {
+                                    var bookedDevDetails = JSON.parse(bookDevstatus);
 
-                                var bookedDevices = bookedDevDetails.result.device_ids,
+                                    var bookedDevices = bookedDevDetails.result.device_ids,
                                     rid = bookedDevices[0].rid;
 
-                                //logger.info("booked devices "+JSON.stringify(bookedDevices));
+                                    //logger.info("booked devices "+JSON.stringify(bookedDevices));
 
-                                logger.info('app passed ' + app);
-                                pcloudyConnectorServices.initAppiumHubForApp(bookedDevDetails.result.token, app).then(function(initAppiumHubForAppStat) {
-                                    var initHubresp = JSON.parse(initAppiumHubForAppStat);
+                                    logger.info('app passed ' + app);
+                                    pcloudyConnectorServices.initAppiumHubForApp(bookedDevDetails.result.token, app).then(function(initAppiumHubForAppStat) {
+                                        var initHubresp = JSON.parse(initAppiumHubForAppStat);
 
-                                    pcloudyConnectorServices.getAppiumEndPoint(initHubresp.result.token).then(function(getAppiumEndPointstat) {
+                                        pcloudyConnectorServices.getAppiumEndPoint(initHubresp.result.token).then(function(getAppiumEndPointstat) {
 
-                                        var endPoint = JSON.parse(getAppiumEndPointstat);
-                                        endPoint.rid = rid;
-                                        logger.info(JSON.stringify(endPoint));
-                                        logger.info(" ===================== Started Appium and Received Endpoint ================== \n ");
-                                        logger.info(" endpoint  ==> " + endPoint.result.endpoint);
-                                        var options = {};
+                                            var endPoint = JSON.parse(getAppiumEndPointstat);
+                                            endPoint.rid = rid;
+                                            logger.info(JSON.stringify(endPoint));
+                                            logger.info(" ===================== Started Appium and Received Endpoint ================== \n ");
+                                            logger.info(" endpoint  ==> " + endPoint.result.endpoint);
+                                            var options = {};
 
-                                        var totalBokkedDevs = bookedDevices.length;
-                                        try {
-                                            bookedDevices.forEach(function(i, index, bookedDevices) {
+                                            var totalBokkedDevs = bookedDevices.length;
+                                            try {
+                                                bookedDevices.forEach(function(i, index, bookedDevices) {
 
-                                                options.desiredCapabilities = {};
-                                                options.desiredCapabilities.launchTimeout = configs.desiredCapabilities.host;
-                                                options.desiredCapabilities.CommandTimeout = configs.desiredCapabilities.CommandTimeout;
-                                                options.desiredCapabilities.deviceName = i.capabilities.deviceName;
-                                                options.desiredCapabilities.browserName = i.capabilities.browserName;
-                                                options.desiredCapabilities.platformName = i.capabilities.platformName;
-                                                options.desiredCapabilities.appPackage = configs.desiredCapabilities.appPackage;
-                                                options.desiredCapabilities.appActivity = configs.desiredCapabilities.appActivity;
-                                                options.desiredCapabilities.rotatable = configs.desiredCapabilities.rotatable;
-                                                options.logLevel = configs.loglevel;
-                                                options.logOutput = configs.logOutput;
-                                                options.protocol = configs.protocol;
-                                                options.host = configs.host;
-                                                options.port = configs.port;
-                                                options.coloredLogs = configs.coloredLogs;
-                                                options.bail = configs.bail;
-                                                options.screenshotPath = configs.screenshotPath;
-                                                options.screenshotOnReject = configs.screenshotOnReject;
+                                                    options.desiredCapabilities = {};
+                                                    options.desiredCapabilities.launchTimeout = configs.desiredCapabilities.host;
+                                                    options.desiredCapabilities.CommandTimeout = configs.desiredCapabilities.CommandTimeout;
+                                                    options.desiredCapabilities.deviceName = i.capabilities.deviceName;
+                                                    options.desiredCapabilities.browserName = i.capabilities.browserName;
+                                                    options.desiredCapabilities.platformName = i.capabilities.platformName;
+                                                    options.desiredCapabilities.appPackage = configs.desiredCapabilities.appPackage;
+                                                    options.desiredCapabilities.appActivity = configs.desiredCapabilities.appActivity;
+                                                    options.desiredCapabilities.rotatable = configs.desiredCapabilities.rotatable;
+                                                    options.logLevel = configs.loglevel;
+                                                    options.logOutput = configs.logOutput;
+                                                    options.protocol = configs.protocol;
+                                                    options.host = configs.host;
+                                                    options.port = configs.port;
+                                                    options.coloredLogs = configs.coloredLogs;
+                                                    options.bail = configs.bail;
+                                                    options.screenshotPath = configs.screenshotPath;
+                                                    options.screenshotOnReject = configs.screenshotOnReject;
 
-                                                var hubUrl = endPoint.result.endpoint + '/wd/hub';
-                                                var p = options.protocol + "://" + options.host;
-                                                options.path = hubUrl.split(p)[1];
-                                                var unixTime = Math.round(+new Date() / 1000);
-                                                pointer.timeConverter(unixTime).then(function(readableTime) {
-                                                    unixTime = readableTime;
-                                                })
+                                                    var hubUrl = endPoint.result.endpoint + '/wd/hub';
+                                                    var p = options.protocol + "://" + options.host;
+                                                    options.path = hubUrl.split(p)[1];
+                                                    var unixTime = Math.round(+new Date() / 1000);
+                                                    pointer.timeConverter(unixTime).then(function(readableTime) {
+                                                        unixTime = readableTime;
+                                                    })
 
-                                                var client = webdriverio.remote(options)
+                                                    var client = webdriverio.remote(options)
                                                     .init().saveScreenshot(configs.screenshotPath + '/pcloudy-' + i.manufacturer + '-' + i.model + '-' + i.version + '-' + i.capabilities.deviceName + '-' + unixTime + '.png')
 
                                                     /*################################################### Add your code for testing #####################################*/
@@ -125,62 +126,64 @@ module.exports = function appiumEngine(configs) {
 
                                                     /*################################################## Add your code ################################################*/
                                                     .end();
-                                                //logger.debug('devicename passed in desired capabilities '+i.capabilities.deviceName);
-                                                //logger.info("options passed to webdriver "+JSON.stringify(options));
-                                                logger.debug("Webdriver Init : " + i.model);
-                                                logger.debug("Next: " + ((bookedDevices.length - 1 === index) ? resolve(endPoint) : bookedDevices[index + 1]));
-                                            })
-                                        } catch (exp) {
-                                            logger.info('Booked devices each ' + exp);
-                                        }
+                                                    //logger.debug('devicename passed in desired capabilities '+i.capabilities.deviceName);
+                                                    //logger.info("options passed to webdriver "+JSON.stringify(options));
+                                                    logger.debug("Webdriver Init : " + i.model);
+                                                    logger.debug("Next: " + ((bookedDevices.length - 1 === index) ? resolve(endPoint) : bookedDevices[index + 1]));
+                                                })
+                                            } catch (exp) {
+                                                logger.info('Booked devices each ' + exp);
+                                            }
 
-                                        /*###################========= Api to releaseAppiumsession / release all booked devices  After finishing your all test cases call this to release ####################################=====*/
-                                        /*pcloudyConnectorServices.releaseAppiumsession(token,rid).then(function(releaseInstanceAccess){
-                                        logger.log('installAndLaunchApp '+JSON.stringify(releaseInstanceAccess));
+                                            /*###################========= Api to releaseAppiumsession / release all booked devices  After finishing your all test cases call this to release ####################################=====*/
+                                            /*pcloudyConnectorServices.releaseAppiumsession(token,rid).then(function(releaseInstanceAccess){
+                                            logger.log('installAndLaunchApp '+JSON.stringify(releaseInstanceAccess));
                                         },function(releaseInstanceAccessErr){
                                         logger.log('installAndLaunchAppErr '+JSON.stringify(releaseInstanceAccessErr));
-                                        })*/
+                                    })*/
 
 
-                                    }, function(getAppiumEndPointErr) {
-                                        loggerr.debug(JSON.stringify(getAppiumEndPointErr));
-                                        reject(getAppiumEndPointErr);
-                                    })
-
-                                }, function(initAppiumHubForAppErr) {
-                                    logger.debug('initAppiumHubForAppErr ' + JSON.stringify(initAppiumHubForAppErr));
-                                    reject(initAppiumHubForAppErr);
+                                }, function(getAppiumEndPointErr) {
+                                    loggerr.debug(JSON.stringify(getAppiumEndPointErr));
+                                    reject(getAppiumEndPointErr);
                                 })
 
-                            }, function(bookdevErr) {
-                                logger.debug('bookdevErr ' + JSON.stringify(bookdevErr));
-                                reject(bookdevErr);
+                            }, function(initAppiumHubForAppErr) {
+                                logger.debug('initAppiumHubForAppErr ' + JSON.stringify(initAppiumHubForAppErr));
+                                reject(initAppiumHubForAppErr);
                             })
-                        }); //rl
-                    } catch (exp) {
-                        console.info("err " + exp);
-                    }
-                }, function(getDevErr) {
-                    logger.debug('getDevErr : ' + JSON.stringify(getDevErr));
-                    reject(getDevErr);
-                })
-            })
-            return promise;
-        },
-        timeConverter: function(UNIX_timestamp) {
-            var promise = new Promise(function(resolve, reject) {
-                var a = new Date(UNIX_timestamp * 1000);
-                var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                var year = a.getFullYear();
-                var month = months[a.getMonth()];
-                var date = a.getDate();
-                var hour = a.getHours();
-                var min = a.getMinutes();
-                var sec = a.getSeconds();
-                var time = date + '__' + month + '__' + year + '__' + hour + ':' + min + ':' + sec;
-            resolve(time);
-            })
-            return promise;
-        }
-    }
+                        }catch(excp){
+                            logger.debug("BookDevicesForAppium Err : "+excp);
+                        }
+                    }, function(bookdevErr) {
+                        logger.debug('bookdevErr ' + JSON.stringify(bookdevErr));
+                        reject(bookdevErr);
+                    })
+                }); //rl
+            } catch (exp) {
+                console.info("err " + exp);
+            }
+        }, function(getDevErr) {
+            logger.debug('getDevErr : ' + JSON.stringify(getDevErr));
+            reject(getDevErr);
+        })
+    })
+    return promise;
+},
+timeConverter: function(UNIX_timestamp) {
+    var promise = new Promise(function(resolve, reject) {
+        var a = new Date(UNIX_timestamp * 1000);
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        var year = a.getFullYear();
+        var month = months[a.getMonth()];
+        var date = a.getDate();
+        var hour = a.getHours();
+        var min = a.getMinutes();
+        var sec = a.getSeconds();
+        var time = date + '__' + month + '__' + year + '__' + hour + ':' + min + ':' + sec;
+        resolve(time);
+    })
+    return promise;
+}
+}
 }

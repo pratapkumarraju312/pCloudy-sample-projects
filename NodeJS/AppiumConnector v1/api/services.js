@@ -87,7 +87,7 @@ module.exports = function pcloudyServices(cloudName) {
       return promise;
     },
     BookDevicesForAppium: function(token,duration,devices,platform,session,overwrite_location){
-
+      logger.debug("BookDevicesForAppium : "+'https://'+cloudName+'/api/appium/init');
       var options = {
         url: 'https://'+cloudName+'/api/appium/init',
         method: 'POST',

@@ -100,7 +100,7 @@ utilServices.fileRead(configPath).then(function(configs) {
                         coreInstance.appiumCore(token,devicePlatform,app).then(function(appiumLaunchStatus){
                             logger.info("Status of pcloudy Appium Service Launch == > "+JSON.stringify(appiumLaunchStatus));
 
-                            pcloudyConnectorServices.releaseAppiumsession(token,appiumLaunchStatus.rid,0).then(function(releaseInstanceAccess){
+                            pcloudyConnectorServices.releaseAppiumsession(token,appiumLaunchStatus.rid,5).then(function(releaseInstanceAccess){
                                 //logger.log('releaseAppiumsession '+JSON.stringify(releaseInstanceAccess));
                                 var releaseStat = JSON.parse(releaseInstanceAccess);
                                 logger.info('Status of Appium session release : '+releaseStat.result.msg);
