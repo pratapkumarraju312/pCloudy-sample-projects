@@ -1,5 +1,5 @@
 var logger = require('./helpers/logger.js'),
-pcloudyConnector = require('./api/services.js');
+pcloudyConnector = require('./api/pCloudyApiConnector.js');
 
 var utils = require('./helpers/utils.js'),
 utilServices = new utils(),
@@ -15,8 +15,8 @@ const rl = readline.createInterface({
 var webdriverio = require('webdriverio');
 
 //appium core
-appiumCore = function(token, platform, uploadedApp,configs) {
-    logger.debug(" token "+token +" p "+platform + " a "+uploadedApp);
+appiumCore = function(token, platform, uploadedApp, configs) {
+    logger.debug(" token " + token +" p " + platform + " a " + uploadedApp);
     //uploadedApp = "'" + uploadedApp + "'";
     var pointer = this;
     var promise = new Promise(function(resolve, reject) {
@@ -31,7 +31,7 @@ appiumCore = function(token, platform, uploadedApp,configs) {
                 availabledevs = [],
                 sessionname = '';
                 if (allDevsavilable.length) {
-                    logger.info(" == Avialable devices == ");
+                    logger.info(" == Available devices == ");
 
                     allDevsavilable.forEach(function(entry) {
                         logger.info("=========================================================================================");
@@ -146,14 +146,17 @@ appiumCore = function(token, platform, uploadedApp,configs) {
                                                                       })
 
                                                                       var client = webdriverio.remote(options)
-                                                                      .init().saveScreenshot(configs.screenshotPath + '/pcloudy-' + i.manufacturer + '-' + i.model + '-' + i.version + '-' + i.capabilities.deviceName + '-' + unixTime + '.png')
+                                                                      .init().saveScreenshot(configs.screenshotPath + '/pcloudy-' + i.manufacturer + '-' + i.model + '-' + i.version + '-' + i.capabilities.deviceName + '-' + unixTime + '.png');
 
-                                                                      /*################################################### Add your code for testing #####################################*/
+
+                                                                      logger.info("*################################################### Add your Appium Code Here  #####################################*");
+
                                                                       var model = i.model,rid = i.rid;
                                                                       setTimeout(function(){
-                                                                          logger.debug('going to end webdriver client');
+                                                                          logger.debug('Going to end webdriver client');
                                                                           client.end();
                                                                           pcloudyConnectorServices.releaseAppiumsession(token,rid,0).then(function(releaseAppiumsession){
+									  logger.info('Releasing the Appium Session');
                                                                                 var releaseStat = JSON.parse(releaseAppiumsession);
                                                                                 releaseStat = releaseStat.result;
                                                                                 if(releaseStat.hasOwnProperty('error')){
@@ -167,8 +170,6 @@ appiumCore = function(token, platform, uploadedApp,configs) {
                                                                       },60000)
                                                                       /*################################################## Add your code ################################################*/
 
-                                                                      //logger.debug('devicename passed in desired capabilities '+i.capabilities.deviceName);
-                                                                      //logger.info("options passed to webdriver "+JSON.stringify(options));
                                                                       logger.debug("Webdriver Init : " + i.model);
                                                                       logger.debug("Next: " + ((bookedDevices.length - 1 === index) ? resolve({'status':'done'}) : bookedDevices[index + 1]));
                                                                   })
@@ -276,7 +277,7 @@ utilServices.fileRead(configPath).then(function(configs) {
                                             var cloudfile = alreadyPresentfiles[k]['file'];
                                             if (cloudfile == app) {
                                                 present = true;
-                                                logger.info("App with Same name " + cloudfile + " present in pCloudy cloud drive ");
+                                                logger.info("App with Same name '" + cloudfile + "' already present in pCloudy Cloud Drive");
                                                 break;
                                             }
                                         }
@@ -287,7 +288,7 @@ utilServices.fileRead(configPath).then(function(configs) {
                                             pcloudyConnectorServices.UploadApp(token, app, 'raw', 'all').then(function(uploadStatus) {
                                                 var status = JSON.parse(uploadStatus),uploadedFile = status.result.file;
                                                 status = status.result;
-                                                logger.info('upload status : ' + JSON.stringify(status));
+                                                logger.info('Upload Status : ' + JSON.stringify(status));
                                                 try{
                                                 if(status.hasOwnProperty('error')){
                                                     logger.error("Error while uploading app : "+status.error);
@@ -295,7 +296,7 @@ utilServices.fileRead(configPath).then(function(configs) {
                                                 }
                                                 else{
                                                     if (status.code == 200) {
-                                                        logger.info('upload Success for file : ' + status.file);
+                                                        logger.info('Upload Success for file : ' + status.file);
 
                                                         //core
                                                         appiumCore(token,devicePlatform,uploadedFile,configs).then(function(appiumLaunchStatus){

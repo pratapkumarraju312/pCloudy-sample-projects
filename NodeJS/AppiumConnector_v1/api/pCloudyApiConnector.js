@@ -288,11 +288,12 @@ module.exports = function pcloudyServices(cloudName) {
     }
     return promise;
   },
-   UploadApp : function(token,file,sourcetype,filter){
-     var promise = new Promise(function(resolve,reject){
+   UploadApp : function(token, file, sourcetype, filter){
+     var promise = new Promise(function(resolve, reject){
        try {
-         var cmd = __dirname+"/upload.sh  "+ "'" + file + "'" + " " +token + " " + cloudName ;
-         logger.debug("command "+cmd);
+	 var cmd = '"' + __dirname + '/upload.sh"' + ' "' + file + '" ' + token + ' ' + cloudName;
+
+         logger.debug("Upload Command: " + cmd);
          exec(cmd, function(err, stdout, stderr) {
             if (err) {
               console.error(err);
