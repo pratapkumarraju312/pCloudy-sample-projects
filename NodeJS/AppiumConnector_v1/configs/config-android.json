@@ -16,7 +16,7 @@
   "bail" : 0,
   "screenshotPath" : "./screenshot/",
   "screenshotOnReject" : false,
-  "username" : "",
-  "password" : "",
+  "username" : "anshuman.chatterjee@sstsinc.com",
+  "password" : "qngf3bgv6h8pg2r8xm78xvxz",
   "appname" : "com.ba.mobile.apk"
 }

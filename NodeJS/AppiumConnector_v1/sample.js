@@ -177,7 +177,7 @@ appiumCore = function(token, platform, uploadedApp,configs) {
                                                               }
                                                           }
                                                       }, function(getAppiumEndPointErr) {
-                                                          loggerr.Error(" getAppiumEndPointErr : "+JSON.stringify(getAppiumEndPointErr));
+                                                          logger.Error(" getAppiumEndPointErr : "+JSON.stringify(getAppiumEndPointErr));
                                                           reject(getAppiumEndPointErr);
                                                       })
                                                   }
