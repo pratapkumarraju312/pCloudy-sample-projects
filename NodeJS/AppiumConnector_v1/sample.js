@@ -39,7 +39,7 @@ module.exports = function appiumPcloudy() {
               } else {
                   logger.info(' token  ====== > ' + response.result.token);
                   token = response.result.token; //saved in global variable
-                  rl.question('====================== choose any one platform  ========================= \n 1 : Android \n  ========= Enter 1 to choose ============= \n', (platform) => {
+                  rl.question('====================== choose platform  ========================= \n 1 : Android \n  ========= Enter 1 to choose ============= \n', (platform) => {
                       //logger.info(`You have chosen platform : ${platform}`);
                       var platformName = platform,
                       devicePlatform = '-NOT-SELECTED-';
