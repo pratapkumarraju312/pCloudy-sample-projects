@@ -1,6 +1,6 @@
 {
-  "name": "pcloudy-appium",
-  "version": "1.0.0",
+  "name": "pcloudy-appium-connector",
+  "version": "1.0.2",
   "description": "Appium Connector library",
   "main": "server.js",
   "scripts": {

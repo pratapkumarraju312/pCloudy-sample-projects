@@ -1,4 +1,4 @@
-# pCloudy-node-connector-test
+# pCloudy-appium service
 - Run Appium Automation over multiple devices of pCloudy.
 - Launches App and takes screenshot.
 - Saves screenshot of App launch inside screenshot folder.
@@ -9,18 +9,17 @@
 ```shell
 npm init
 
-npm install appium-pcloudy --save
+npm install pcloudy-appium-connector --save
 
 ```
-
 
 ## Writing a script
 ```javascript
 
-//1: Create screenshot named folder.
-//2: Create log named folder.
-//3: config.json which has following fields.
-//4: app file
+//1: Create screenshot directory.
+//2: Create log directory.
+//3: Create config.json file which has following fields.
+//4: app file at current directory.
 {
   "desiredCapabilities": {
     "launchTimeout" : 90000,
@@ -43,14 +42,16 @@ npm install appium-pcloudy --save
   "appname" : "YOUR_APP_NAME"
 }
 
+//create a file eg: index.js add with following code to select pCloudy Devices and run appium Automation.
 
-var appiumpCloudy = require('pcloudy-appium');
+var appiumpCloudy = require('pcloudy-appium-connector');
 
 instance = new appiumpCloudy();
 
 instance.appiumInterface('config.json');
 
 
+//node index.js
 ```
 
 ## Known issues / limitations
