@@ -66,7 +66,7 @@ instance.appiumInterface('config.json');
 - muthuraj.bharathi@sstsinc.com
 
 ## Authors
-- Muthu raj bharathi ([muthurajbharathi](https://github.com/pankyopkey/pCloudy-sample-projects/tree/master/NodeJS/AppiumConnector_v1))
+- Muthu raj bharathi ([AppiumConnector_v1](https://github.com/pankyopkey/pCloudy-sample-projects/tree/master/NodeJS/AppiumConnector_v1))
 
 ## License
 

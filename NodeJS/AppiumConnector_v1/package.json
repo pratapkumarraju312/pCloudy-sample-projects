@@ -1,6 +1,6 @@
 {
-  "name": "pcloudy-appium-connector",
-  "version": "1.0.5",
+  "name": "@pcloudy-remote-devices/pcloudy-appium-connector",
+  "version": "1.0.8",
   "description": "Appium Connector library",
   "main": "server.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "start": "node server.js"
   },
   "author": "Muthu raj bharathi",
-  "license": "",
+  "license": "ISC",
   "dependencies": {
     "colors": "^1.1.2",
     "express": "^4.15.4",
