@@ -1,6 +1,6 @@
 {
-  "name": "@pcloudy-remote-devices/pcloudy-appium-connector",
-  "version": "1.0.8",
+  "name": "@pcloudy-remote-devices/pcloudy-appium-connector-utility",
+  "version": "1.1.1",
   "description": "Appium Connector library",
   "main": "server.js",
   "scripts": {
