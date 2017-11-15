@@ -1,4 +1,5 @@
-# pCloudy-appium service
+
+## pCloudy-appium service
 - Run Appium Automation over multiple devices of pCloudy.
 - Launches App and takes screenshot through webdriverio.
 - Saves screenshot of App launch inside screenshot folder.
