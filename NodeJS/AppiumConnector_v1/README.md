@@ -24,6 +24,7 @@ npm install pcloudy-appium-connector --save
 //2: Create log directory.
 //3: Create config.json file which has following fields.
 //4: app file at current directory.
+
 {
   "desiredCapabilities": {
     "launchTimeout" : 90000,
