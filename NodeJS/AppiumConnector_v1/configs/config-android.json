@@ -5,7 +5,6 @@
     "appPackage" : "com.ba.mobile",
     "appActivity" : "com.ba.mobile.LaunchActivity",
     "rotatable" : true
-
   },
   "logLevel" : "verbose",
   "logOutput" : "./log/",
@@ -16,7 +15,7 @@
   "bail" : 0,
   "screenshotPath" : "./screenshot/",
   "screenshotOnReject" : false,
-  "username" : "anshuman.chatterjee@sstsinc.com",
-  "password" : "qngf3bgv6h8pg2r8xm78xvxz",
+  "username" : "YOUR_PCLOUDY_USERNAME",
+  "password" : "YOUR_PCLOUDY_ACCESS_KEY",
   "appname" : "com.ba.mobile.apk"
 }

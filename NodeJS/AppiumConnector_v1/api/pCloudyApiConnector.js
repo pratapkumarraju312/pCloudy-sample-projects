@@ -87,7 +87,7 @@ module.exports = function pcloudyServices(cloudName) {
       return promise;
     },
     BookDevicesForAppium: function(token,duration,devices,platform,session,overwrite_location){
-      logger.debug("BookDevicesForAppium : "+'https://'+cloudName+'/api/appium/init');
+      //logger.debug("BookDevicesForAppium : "+'https://'+cloudName+'/api/appium/init');
       var options = {
         url: 'https://'+cloudName+'/api/appium/init',
         method: 'POST',
@@ -123,14 +123,14 @@ module.exports = function pcloudyServices(cloudName) {
 
       var promise = new Promise(function(resolve,reject){
         // Start the request
-        logger.info("---- Starting Appium hub please wait ---");
+        logger.info(" \n\n ---- Starting Appium hub please wait ---");
         try {
           request(options, function (error, response, body) {
             if (!error && response.statusCode == 200) {
               // Print out the response body
               resolve(body);
             }else{
-              
+
               reject(error);
             }
           })
