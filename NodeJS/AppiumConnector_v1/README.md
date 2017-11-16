@@ -13,7 +13,7 @@
 
 npm init
 
-npm install pcloudy-appium-connector --save
+npm install pcloudy-appium-utility --save
 
 ```
 
@@ -49,7 +49,7 @@ npm install pcloudy-appium-connector --save
 
 //create a file eg: index.js add with following code to select pCloudy Devices and run appium Automation.
 
-var appiumpCloudy = require('pcloudy-appium-connector');
+var appiumpCloudy = require('pcloudy-appium-utilty');
 
 instance = new appiumpCloudy();
 
