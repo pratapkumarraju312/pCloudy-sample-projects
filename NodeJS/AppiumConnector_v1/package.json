@@ -1,6 +1,6 @@
 {
   "name": "pcloudy-appium-utility",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Appium Connector for running automations on pCloudy Devices",
   "main": "server.js",
   "scripts": {
