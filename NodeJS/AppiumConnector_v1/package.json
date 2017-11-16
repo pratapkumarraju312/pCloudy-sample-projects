@@ -1,7 +1,7 @@
 {
-  "name": "pcloudy-appium-connector-utility",
-  "version": "1.1.4",
-  "description": "Appium Connector Library for pCloudy Devices",
+  "name": "pcloudy-appium-utility",
+  "version": "1.0.0",
+  "description": "Appium Connector for running automations on pCloudy Devices",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
