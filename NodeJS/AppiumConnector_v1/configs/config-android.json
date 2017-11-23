@@ -15,7 +15,10 @@
   "bail" : 0,
   "screenshotPath" : "./screenshot/",
   "screenshotOnReject" : false,
-  "username" : "YOUR_PCLOUDY_USERNAME",
-  "password" : "YOUR_PCLOUDY_ACCESS_KEY",
-  "appname" : "com.ba.mobile.apk"
+  "username" : "",
+  "password" : "",
+  "appname" : "com.ba.mobile.apk",
+  "oSversion":"6.0.1",
+  "count":2,
+  "os" :""
 }

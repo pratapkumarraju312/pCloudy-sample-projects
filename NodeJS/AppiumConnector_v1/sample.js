@@ -22,11 +22,13 @@ module.exports = function appiumPcloudy() {
       utilServices.fileRead(configPath).then(function(configs) {
           try {
               configs = JSON.parse(configs.data);
+              logger.debug("configs == "+JSON.stringify(configs));
               var cloudName = configs.host,
               email = configs.username,
               apiKey = configs.password,
               app = configs.appname;
               pcloudyConnectorServices = new pcloudyConnector(cloudName);
+
           } catch (e) {
               logger.error(" error initializing configs " + e);
           }
@@ -157,7 +159,7 @@ module.exports = function appiumPcloudy() {
                       availabledevs = [],
                       sessionname = '';
                       if (allDevsavilable.length) {
-                          logger.info(" == Available devices == ");
+                          /*logger.info(" == Available devices == ");
 
                           allDevsavilable.forEach(function(entry) {
                               logger.info("=========================================================================================");
@@ -169,38 +171,50 @@ module.exports = function appiumPcloudy() {
                               logger.log(" manufacturer : "+entry.manufacturer);
                               logger.log(" platform : "+entry.platform);
                               logger.log(" availability : "+entry.available);*/
-                          });
+                          //});
                       } else {
                           logger.warn(" == There no devices available at this time try to book after some time == ");
                           pointer.terminate();
                       }
                       try {
                           var chosenDevs = [];
-                          var readdev = readline.createInterface({
+                          /*==== commenting user input reading pieces ===*/
+                            /*var readdev = readline.createInterface({
                               input: process.stdin,
                               output: process.stdout
                           });
                           logger.info('================================================================ \n');
+
                           readdev.question('\n Enter did value as shown above to select devices (use comma for multiple devices) \n ', (answer) => {
                               logger.info('================================================================ \n');
 
                               logger.info(`You have chosen devices : ${answer}`);
                               answer = answer.split(',');
-                              chosenDevs = answer;
-                              logger.info('\n\n ======= chosen Devices are =======');
-                              readdev.close();
-                              var bookedDevsInfo = {};
-                              Object.keys(allDevsavilable).forEach(function(key) {
-                                  //console.log(allDevsavilable[key].id);
-                                  var did = allDevsavilable[key].id;
-                                  if (chosenDevs.indexOf(did.toString()) >= 0) {
-                                      bookedDevsInfo[did] = allDevsavilable[key];
-                                  }
-                              });
+                              chosenDevs = answer;* ==== user input related ==== */
 
-                              Object.keys(bookedDevsInfo).forEach(function(key) {
+                              //readdev.close();
+                              var bookedDevsInfo = {};
+                              logger.log(configs.oSversion , configs.count );
+                              for(var call of allDevsavilable) {
+                                  var did = call.id;
+
+                                  if( call.version == configs.oSversion && (chosenDevs.length) < configs.count){
+                                    logger.info('\n\n ======= ' + call.full_name + ' __ ' + call.version + ' __ ' + call.platform + ' __ '+ call.model + ' has been chosen =======');
+                                    chosenDevs.push(did);
+                                    bookedDevsInfo[did] = call;
+                                  }
+
+                                  if((chosenDevs.length) == configs.count){
+                                    logger.debug(" selected "+configs.count + " No of devices whose version are "+call.version);
+                                    break;
+                                  }
+                                  logger.debug("count : "+chosenDevs.length);
+
+                              }
+                              /*Object.keys(bookedDevsInfo).forEach(function(key) {
                                   logger.info(' device id ==> ' + bookedDevsInfo[key].id + ', Device name ==> ' + bookedDevsInfo[key].full_name);
                               })
+                              logger.debug(" going to book "+JSON.stringify(chosenDevs));*/
                               pcloudyConnectorServices.BookDevicesForAppium(devDetails.token, 5, chosenDevs, platform, 'pcloudytest-' + platform, "true").then(function(bookDevstatus) {
                                   //logger.log('bookDev '+JSON.stringify(bookDevstatus));
 
@@ -295,7 +309,7 @@ module.exports = function appiumPcloudy() {
                                                                             },60000)
                                                                             /*################################################## Add your code ################################################*/
 
-                                                                            logger.debug(" Webdriver Init : " + i.model);
+                                                                            logger.info(" Webdriver Initiated for  : " + i.model);
                                                                             if(bookedDevices[index + 1]){
                                                                                 var next = bookedDevices[index + 1].manufacturer+'--'+bookedDevices[index + 1].model;
                                                                                 logger.debug("Webdriver Init Next : " + ((bookedDevices.length - 1 === index) ? resolve({'status':'done'}) : next));
@@ -319,7 +333,7 @@ module.exports = function appiumPcloudy() {
                               logger.debug('bookdevErr ' + JSON.stringify(bookdevErr));
                               reject(bookdevErr);
                           })
-                      }); //rl
+                      //});  choose devices user input rl
                   } catch (exp) {
                       logger.info("Err in appium core : " + exp);
                   }
