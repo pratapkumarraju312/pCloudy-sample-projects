@@ -22,7 +22,7 @@ module.exports = function appiumPcloudy() {
       utilServices.fileRead(configPath).then(function(configs) {
           try {
               configs = JSON.parse(configs.data);
-              logger.debug("configs == "+JSON.stringify(configs));
+
               var cloudName = configs.host,
               email = configs.username,
               apiKey = configs.password,
@@ -194,7 +194,7 @@ module.exports = function appiumPcloudy() {
 
                               //readdev.close();
                               var bookedDevsInfo = {};
-                              logger.log(configs.oSversion , configs.count );
+
                               for(var call of allDevsavilable) {
                                   var did = call.id;
 
@@ -204,12 +204,12 @@ module.exports = function appiumPcloudy() {
                                     bookedDevsInfo[did] = call;
                                   }
 
-                                  if((chosenDevs.length) == configs.count){
-                                    logger.debug(" selected "+configs.count + " No of devices whose version are "+call.version);
+                                  /*if((chosenDevs.length) == configs.count){
+                                    logger.info(" selected "+configs.count + " No of devices whose version are "+configs.oSversion);
                                     break;
-                                  }
-                                  logger.debug("count : "+chosenDevs.length);
+                                  } else if((chosenDevs.length) < configs.count){
 
+                                  }*/
                               }
                               /*Object.keys(bookedDevsInfo).forEach(function(key) {
                                   logger.info(' device id ==> ' + bookedDevsInfo[key].id + ', Device name ==> ' + bookedDevsInfo[key].full_name);
