@@ -73,7 +73,7 @@ module.exports = function appiumPcloudy() {
 
                                                   if(k == (len-1)){
                                                     logger.debug("last "+k + " exit ");
-                                                    pointer.terminate()
+                                                    //pointer.terminate()
                                                   }
                                               }
                                               if(!present){
