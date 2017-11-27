@@ -10,6 +10,6 @@
 * Open Terminal
 * cd to the current Directory
 * run:
-* * 	mvn clean
-* * 	mvn compile
-* * 	mvn test
+** mvn clean
+** mvn compile
+** mvn test
